@@ -1,5 +1,8 @@
 # IDE config
 .idea/
+.settings/
+.classpath
+.project
 
 # Compiled class file
 *.class

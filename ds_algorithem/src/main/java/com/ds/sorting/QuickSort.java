@@ -3,7 +3,7 @@ package com.ds.sorting;
 import com.ds.util.PrintUtil;
 
 public class QuickSort {
-    
+
     public static void bubbleSort(int [] a) {
         for(int i = 0; i < a.length; i++) {
             int temp;
