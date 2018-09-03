@@ -3,6 +3,10 @@ package com.reactor.flux;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import reactor.core.publisher.Flux;
 
@@ -40,8 +44,35 @@ public class FluxDemo {
 	}
 
 	public static void main(String[] args) {
-		FluxDemo fluxDemo = new FluxDemo();
-		fluxDemo.time();
+//		FluxDemo fluxDemo = new FluxDemo();
+//		fluxDemo.time();
+
+		List<Date> dateList = new ArrayList<>();
+		dateList.add(new Date(System.currentTimeMillis() - 100000));
+        dateList.add(new Date(System.currentTimeMillis() - 50000));
+        dateList.add(null);
+        dateList.add(new Date(System.currentTimeMillis() - 10000));
+        dateList.add(new Date(System.currentTimeMillis()));
+
+        dateList = dateList.stream()
+            .sorted((Date d1, Date d2) -> {
+                if(d1 == null) {
+                    System.out.println("xxx");
+                    return 1;
+                } else if(d2 == null) {
+                    return -1;
+                } else {
+                    if(d1.before(d2)) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                }
+            })
+            .collect(Collectors.toList());
+
+        dateList.forEach(System.out::println);
+
 	}
 
 }
