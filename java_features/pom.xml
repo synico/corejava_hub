@@ -12,8 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>10</maven.compiler.source>
+    <maven.compiler.target>10</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -32,6 +32,25 @@
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-toolchains-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>toolchain</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <toolchains>
+              <jdk>
+                <version>10</version>
+                <vendor>sun</vendor>
+              </jdk>
+            </toolchains>
+          </configuration>
+        </plugin>
         <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
@@ -39,7 +58,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.7.0</version>
+          <version>3.8.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
