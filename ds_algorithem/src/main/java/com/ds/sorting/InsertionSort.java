@@ -87,9 +87,11 @@ public class InsertionSort {
                     low = j + 1;
                 }
             }
-            for(int i = p; i > j; i--) {
-                array[i] = array[i - 1];
-            }
+            // performance tuning - avoid manual array copy
+//            for(int i = p; i > j; i--) {
+//                array[i] = array[i - 1];
+//            }
+            System.arraycopy(array, j, array, j + 1, p - j);
             array[j] = temp;
         }
         return array;

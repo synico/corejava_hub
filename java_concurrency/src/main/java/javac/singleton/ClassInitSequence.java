@@ -6,7 +6,7 @@ public class ClassInitSequence {
 
     public static void main(String[] args) throws Exception {
         System.out.println(Sub.taxi);
-        String s1 = new String("iByteCode");
+        String s1 = "iByteCode";
         System.out.println(s1);
         CyclicBarrier barrier = new CyclicBarrier(1);
         barrier.await();

@@ -19,9 +19,10 @@ public class BinaryHeap {
     
     public BinaryHeap(int [] items) {
         this.array = new int[items.length + 1];
-        for(int i = 0; i < items.length; i++) {
-            array[i + 1] = items[i];
-        }
+//        for(int i = 0; i < items.length; i++) {
+//            array[i + 1] = items[i];
+//        }
+        System.arraycopy(items, 0, array, 1, items.length);
         currentSize = array.length;
     }
     
