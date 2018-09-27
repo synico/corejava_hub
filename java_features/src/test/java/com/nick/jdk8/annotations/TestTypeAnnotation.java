@@ -6,7 +6,7 @@ public abstract class TestTypeAnnotation<T> implements @TypeUseNotNull List<@Typ
 
     String myString = new @TypeUseNotNull String();
 
-    public void validateValues() throws @TypeUseNotNull Exception {
+    public void validateValues() {
 
     }
 }

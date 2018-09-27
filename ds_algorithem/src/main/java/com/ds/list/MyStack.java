@@ -15,11 +15,7 @@ public class MyStack {
     }
     
     public boolean isEmpty() {
-        if(top == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return top == 0;
     }
     
     public boolean push(int e) {

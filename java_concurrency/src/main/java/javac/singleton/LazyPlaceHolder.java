@@ -13,12 +13,12 @@ public class LazyPlaceHolder {
         }
     }
 
-    private static class ResouceHolder {
+    private static class ResourceHolder {
         public static Resource resource = new Resource();
     }
 
     public static Resource getResource() {
-        return ResouceHolder.resource;
+        return ResourceHolder.resource;
     }
 
     public static void main(String... args) {

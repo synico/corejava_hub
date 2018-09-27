@@ -19,7 +19,7 @@ public class LoadDataTask implements Callable<String> {
     }
 
     @Override
-    public String call() throws Exception {
+    public String call() {
         Calendar start = new GregorianCalendar();
         Calendar end = new GregorianCalendar();
         start.setTimeInMillis(System.currentTimeMillis());

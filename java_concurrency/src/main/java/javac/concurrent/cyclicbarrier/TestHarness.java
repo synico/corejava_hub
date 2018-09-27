@@ -5,7 +5,7 @@ import java.util.concurrent.CyclicBarrier;
 
 public class TestHarness {
 
-    public long timeTasks(int nThreads, final Runnable task) throws InterruptedException {
+    public long timeTasks(int nThreads, final Runnable task) {
 
         CyclicBarrier cb = new CyclicBarrier(nThreads, new Runnable() {
             public void run() {

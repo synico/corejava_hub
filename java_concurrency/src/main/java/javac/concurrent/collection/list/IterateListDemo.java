@@ -17,9 +17,7 @@ public class IterateListDemo {
         Iterator<String> listitor = syncList.iterator();
         synchronized (syncList) {
             while (listitor.hasNext()) {
-                if (syncList.contains("3")) {
-                    syncList.remove("3");
-                }
+                syncList.remove("3");
                 listitor.next();
             }
         }

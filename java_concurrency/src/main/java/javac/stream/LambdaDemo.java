@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class LambdaDemo {
 
-    private static void checkCollactor() {
+    private static void checkCollector() {
         List<Order> orders = new ArrayList<Order>();
         Order order1 = new Order("order1", 1, 1.1);
         Order order2 = new Order("order2", 2, 2.2);
@@ -48,7 +48,7 @@ public class LambdaDemo {
     }
 
     public static void main(String args[]) {
-        LambdaDemo.checkCollactor();
+        LambdaDemo.checkCollector();
     }
 
     static class Order {

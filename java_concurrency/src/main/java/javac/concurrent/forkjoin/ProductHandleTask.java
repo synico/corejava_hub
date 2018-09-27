@@ -1,6 +1,7 @@
 package javac.concurrent.forkjoin;
 
 import java.util.List;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 
 public class ProductHandleTask extends RecursiveAction {
@@ -27,7 +28,7 @@ public class ProductHandleTask extends RecursiveAction {
             updatePrices();
         } else {
             int middle = (last + first) / 2;
-            System.out.println("Task: Pending task: " + super.getQueuedTaskCount());
+            System.out.println("Task: Pending task: " + getQueuedTaskCount());
             ProductHandleTask t1 = new ProductHandleTask(products, first, middle + 1, increment);
             ProductHandleTask t2 = new ProductHandleTask(products, middle + 1, last + 1, increment);
             

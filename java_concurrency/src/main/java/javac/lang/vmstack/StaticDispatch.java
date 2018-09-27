@@ -8,7 +8,6 @@ public class StaticDispatch {
     static class Man extends Human {
         protected void sayHello() {
             System.out.println("man say hello");
-            ;
         }
     }
 

@@ -49,7 +49,7 @@ public class AtomicTest {
         printResult(atomicUpdate);
     }
 
-    public static void cylicbarrierTest(boolean atomicUpdate) throws Exception {
+    public static void cylicbarrierTest(boolean atomicUpdate) {
         CyclicBarrier cb = new CyclicBarrier(THREADS_COUNT, new Runnable() {
             public void run() {
                 printResult(atomicUpdate);
@@ -119,7 +119,7 @@ public class AtomicTest {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // countDownLatchTest();
         // cylicbarrierTest(false);
         yieldTest(false);

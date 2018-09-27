@@ -37,7 +37,7 @@ public class Anagram {
         System.out.println("    ");
         System.out.flush();
         if(count % 6 == 0) {
-            System.out.println("");
+            System.out.println();
         }
     }
 

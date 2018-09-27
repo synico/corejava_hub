@@ -62,7 +62,6 @@ public class SynchronousQueueDemo {
 
         new Thread(pro).start();
         new Thread(con).start();
-        ;
     }
 
     public static void main(String[] args) {
