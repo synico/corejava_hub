@@ -20,6 +20,7 @@ public class LoadDataTask implements Callable<String> {
 
     @Override
     public String call() {
+        System.out.println("#### start to run call, coldTime: " + this.coldTime);
         Calendar start = new GregorianCalendar();
         Calendar end = new GregorianCalendar();
         start.setTimeInMillis(System.currentTimeMillis());
@@ -41,6 +42,7 @@ public class LoadDataTask implements Callable<String> {
         sb.append(Thread.currentThread().getName());
         sb.append(" | ");
         sb.append(Long.toString(this.coldTime));
+        System.out.println("#### " + sb.toString());
         return sb.toString();
     }
 

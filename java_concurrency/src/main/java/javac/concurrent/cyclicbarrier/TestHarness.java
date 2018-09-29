@@ -47,7 +47,7 @@ public class TestHarness {
                 }
             });
             System.out.println("Total time: " + totalTime);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
