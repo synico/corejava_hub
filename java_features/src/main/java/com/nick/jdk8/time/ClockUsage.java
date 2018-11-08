@@ -3,6 +3,8 @@ package com.nick.jdk8.time;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClockUsage {
 
@@ -27,6 +29,12 @@ public class ClockUsage {
         checkClock();
         getSystemClock();
         getCTTClock();
+
+        double in = 3.3;
+        Map<String, Object> req = new HashMap<String, Object>();
+        req.put("compensation", in);
+        Double s = (Double)req.get("compensation");
+        System.out.println(s);
     }
 
 }
