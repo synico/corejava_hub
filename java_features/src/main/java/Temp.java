@@ -21,6 +21,11 @@ public class Temp {
         LocalTime localTime = LocalTime.now();
         ZonedDateTime zonedDateTime = ZonedDateTime.of(localDate, localTime, ZoneId.systemDefault());
         System.out.println(zonedDateTime);
+
+        Integer testInt = null;
+        if(testInt == null || testInt.intValue() != 1) {
+            System.out.println("testInt != 1");
+        }
     }
 
 }
