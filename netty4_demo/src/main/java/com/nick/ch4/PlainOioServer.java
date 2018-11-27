@@ -12,7 +12,7 @@ public class PlainOioServer {
         final ServerSocket socket = new ServerSocket(port);
         try {
             for(;;) {
-                //block thread here
+                //block thread here, until there is a client send connection request to server
                 final Socket clientSocket = socket.accept();
                 System.out.println("Accepted connection from " + clientSocket);
                 new Thread(new Runnable() {
