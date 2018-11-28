@@ -7,6 +7,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.util.CharsetUtil;
 
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
@@ -17,10 +18,13 @@ public class NettyNioServer {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap();
-            b.group(group).channel(NioServerSocketChannel.class)
-                    .localAddress(new InetSocketAddress(port))
-                    .childHandler(createChannelHandler(buf));
-
+            b = b.group(group);
+            b = b.channel(NioServerSocketChannel.class);
+            b = b.localAddress(new InetSocketAddress(port));
+            b = b.childHandler(createChannelHandler(buf));
+//            b.group(group).channel(NioServerSocketChannel.class)
+//                    .localAddress(new InetSocketAddress(port))
+//                    .childHandler(createChannelHandler(buf));
             ChannelFuture f = b.bind().sync();
             f.channel().closeFuture().sync();
         } catch (Exception ex) {
@@ -31,7 +35,8 @@ public class NettyNioServer {
     }
 
     /**
-     * Specify ChannelInitializer to handle every connection
+     * Specify ChannelInitializer to handle channel.
+     * To avoid race condition, each channel should have exclusive ChannelHandler.
      * @param byteBuf
      * @return
      */
@@ -57,6 +62,22 @@ public class NettyNioServer {
             public void channelActive(ChannelHandlerContext ctx) throws Exception {
                 ctx.writeAndFlush(byteBuf.duplicate()).addListener(ChannelFutureListener.CLOSE);
             }
+            @Override
+            public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                ByteBuf in = (ByteBuf) msg;
+                System.out.println("Server received: " + in.toString(CharsetUtil.UTF_8));
+                ctx.write(in);
+            }
+            @Override
+            public void channelReadComplete(ChannelHandlerContext ctx) {
+                ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
+                        .addListener(ChannelFutureListener.CLOSE);
+            }
+            @Override
+            public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+                cause.printStackTrace();
+                ctx.close();
+            }
         };
         return adapter;
     }
@@ -64,7 +85,9 @@ public class NettyNioServer {
     public static void main(String[] args) {
         NettyNioServer nettyNioServer = new NettyNioServer();
         try {
+            System.out.println("NettyNioServer is up");
             nettyNioServer.server(10091);
+            System.out.println("NettyNioServer is running");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
