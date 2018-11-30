@@ -13,7 +13,7 @@ public class Temp {
         BigDecimal bg = new BigDecimal(3.3);
         double bgb = Optional.ofNullable(bg).orElse(BigDecimal.valueOf(0)).doubleValue();
         Map<String, Object> result = new HashMap();
-        result.put("key", new Double(2.111));
+        result.put("key", Double.valueOf(2.111));
         result.put("bg", bgb);
         System.out.println((Double)result.get("bg"));
 
