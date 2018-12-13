@@ -1,6 +1,7 @@
 package com.ge.dms.server;
 
 import com.ge.dms.handler.SocketMessageHandler;
+import com.ge.dms.handler.SocketServerMsgOutboundHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -8,13 +9,17 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.apache.log4j.Logger;
 
 import java.net.InetSocketAddress;
 
 public class SocketServer {
 
+    private static final Logger log = Logger.getLogger(SocketServer.class);
+
     private void start() throws Exception {
         final SocketMessageHandler messageHandler = new SocketMessageHandler();
+        final SocketServerMsgOutboundHandler outboundHandler = new SocketServerMsgOutboundHandler();
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -23,7 +28,9 @@ public class SocketServer {
                     .localAddress(new InetSocketAddress(34567))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                        public void initChannel(SocketChannel ch) throws Exception {
+                           log.info("Thread " + Thread.currentThread().getId() + " create new SocketChannel");
                            ch.pipeline().addLast(messageHandler);
+                           ch.pipeline().addLast(outboundHandler);
                        }
                     });
             ChannelFuture channelFuture = serverBootstrap.bind().sync();

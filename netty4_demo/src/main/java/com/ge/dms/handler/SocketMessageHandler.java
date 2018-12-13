@@ -23,7 +23,7 @@ public class SocketMessageHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
         log.info("Server received: " + in.toString(CharsetUtil.UTF_8));
-        ctx.write(in);
+        ctx.write(Unpooled.copiedBuffer("message from client has been read", CharsetUtil.UTF_8));
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.ge.dms.handler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
 import org.apache.log4j.Logger;
 
 public class SocketCilentMsgHandler extends ChannelInboundHandlerAdapter {
@@ -24,6 +25,16 @@ public class SocketCilentMsgHandler extends ChannelInboundHandlerAdapter {
         ctx.writeAndFlush(encoded);
         log.info("Client: date has been sent");
         encoded.release();
+    }
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if(msg instanceof ByteBuf) {
+            log.info("Client received: " + ((ByteBuf)msg).toString(CharsetUtil.UTF_8));
+        } else {
+            log.info("Client received: " + msg.toString());
+        }
+
     }
 
     @Override
