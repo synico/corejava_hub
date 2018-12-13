@@ -2,13 +2,11 @@ package com.ge.dms.client;
 
 import com.ge.dms.handler.SocketCilentMsgHandler;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOutboundHandler;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,8 +16,10 @@ import java.net.InetSocketAddress;
 
 public class SocketClient {
 
+    private static final Logger log = Logger.getLogger(SocketClient.class);
+
     private String readData() {
-        File dataFile = new File("/home/nick/data/router4");
+        File dataFile = new File("/home/nick/data/router1");
         BufferedReader reader = null;
         StringBuilder msg = new StringBuilder();
         try {
@@ -36,7 +36,9 @@ public class SocketClient {
                 }
             }
         }
-        return msg.toString();
+        String result = msg.toString();
+        log.info("msg length: " + result.length());
+        return result;
     }
 
     public void sendData(String data) {
@@ -53,6 +55,7 @@ public class SocketClient {
                         }
                     });
             ChannelFuture channelFuture = bootstrap.connect().sync();
+            channelFuture.addListener(listener -> log.info("send message is completed"));
             channelFuture.channel().closeFuture().sync();
         } catch (Exception ex) {
             ex.printStackTrace();

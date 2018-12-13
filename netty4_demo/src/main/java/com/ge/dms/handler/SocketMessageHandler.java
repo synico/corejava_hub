@@ -15,6 +15,11 @@ public class SocketMessageHandler extends ChannelInboundHandlerAdapter {
     private static final Logger log = Logger.getLogger(SocketMessageHandler.class);
 
     @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelActive is invoked");
+    }
+
+    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
         log.info("Server received: " + in.toString(CharsetUtil.UTF_8));
@@ -23,10 +28,12 @@ public class SocketMessageHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
+        log.info("channelReadComplete is invoked");
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
     }
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        log.info("exceptionCaught is invoked");
         cause.printStackTrace();
         ctx.close();
     }
