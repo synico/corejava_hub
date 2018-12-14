@@ -1,6 +1,6 @@
 package com.ge.dms.client;
 
-import com.ge.dms.handler.SocketCilentMsgHandler;
+import com.ge.dms.handler.SocketClientMsgHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -51,7 +51,7 @@ public class SocketClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new SocketCilentMsgHandler(data));
+                            ch.pipeline().addLast(new SocketClientMsgHandler(data));
                         }
                     });
             ChannelFuture channelFuture = bootstrap.connect().sync();

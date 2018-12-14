@@ -10,9 +10,9 @@ import io.netty.util.CharsetUtil;
 import org.apache.log4j.Logger;
 
 @ChannelHandler.Sharable
-public class SocketMessageHandler extends ChannelInboundHandlerAdapter {
+public class SocketServerMsgInboundHandler extends ChannelInboundHandlerAdapter {
 
-    private static final Logger log = Logger.getLogger(SocketMessageHandler.class);
+    private static final Logger log = Logger.getLogger(SocketServerMsgInboundHandler.class);
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

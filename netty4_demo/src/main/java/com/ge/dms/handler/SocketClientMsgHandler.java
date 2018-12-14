@@ -6,20 +6,20 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 import org.apache.log4j.Logger;
 
-public class SocketCilentMsgHandler extends ChannelInboundHandlerAdapter {
+public class SocketClientMsgHandler extends ChannelInboundHandlerAdapter {
 
-    private static final Logger log = Logger.getLogger(SocketCilentMsgHandler.class);
+    private static final Logger log = Logger.getLogger(SocketClientMsgHandler.class);
 
     private String data;
 
-    public SocketCilentMsgHandler(String data) {
+    public SocketClientMsgHandler(String data) {
         this.data = data;
     }
 
     //This is a callback method which is invoked by {@link}
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.info("Client: channel actived");
+        log.info("Client: channel is active");
         ByteBuf encoded = ctx.alloc().buffer(4 * this.data.length());
         encoded.writeBytes(this.data.getBytes("UTF-8"));
         ctx.writeAndFlush(encoded);
@@ -28,7 +28,7 @@ public class SocketCilentMsgHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if(msg instanceof ByteBuf) {
             log.info("Client received: " + ((ByteBuf)msg).toString(CharsetUtil.UTF_8));
         } else {
@@ -38,7 +38,7 @@ public class SocketCilentMsgHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         log.info(cause.getMessage());
     }
 

@@ -1,6 +1,6 @@
 package com.ge.dms.server;
 
-import com.ge.dms.handler.SocketMessageHandler;
+import com.ge.dms.handler.SocketServerMsgInboundHandler;
 import com.ge.dms.handler.SocketServerMsgOutboundHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -18,7 +18,7 @@ public class SocketServer {
     private static final Logger log = Logger.getLogger(SocketServer.class);
 
     private void start() throws Exception {
-        final SocketMessageHandler messageHandler = new SocketMessageHandler();
+        final SocketServerMsgInboundHandler messageHandler = new SocketServerMsgInboundHandler();
         final SocketServerMsgOutboundHandler outboundHandler = new SocketServerMsgOutboundHandler();
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
