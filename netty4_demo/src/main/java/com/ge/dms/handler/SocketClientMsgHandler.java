@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
 import org.apache.log4j.Logger;
 
 public class SocketClientMsgHandler extends ChannelInboundHandlerAdapter {
@@ -24,7 +25,8 @@ public class SocketClientMsgHandler extends ChannelInboundHandlerAdapter {
         encoded.writeBytes(this.data.getBytes("UTF-8"));
         ctx.writeAndFlush(encoded);
         log.info("Client: date has been sent");
-        encoded.release();
+//        encoded.release();
+        ReferenceCountUtil.release(encoded);
     }
 
     @Override

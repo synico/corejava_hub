@@ -1,5 +1,6 @@
 package com.ge.dms.server;
 
+import com.ge.dms.handler.SocketServerByte2MsgDecoder;
 import com.ge.dms.handler.SocketServerMsgInboundHandler;
 import com.ge.dms.handler.SocketServerMsgOutboundHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -9,6 +10,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.ByteToMessageDecoder;
 import org.apache.log4j.Logger;
 
 import java.net.InetSocketAddress;
@@ -17,9 +19,9 @@ public class SocketServer {
 
     private static final Logger log = Logger.getLogger(SocketServer.class);
 
-    private void start() throws Exception {
-        final SocketServerMsgInboundHandler messageHandler = new SocketServerMsgInboundHandler();
-        final SocketServerMsgOutboundHandler outboundHandler = new SocketServerMsgOutboundHandler();
+    private void start() {
+        final SocketServerMsgInboundHandler msgInboundHandler = new SocketServerMsgInboundHandler();
+        final SocketServerMsgOutboundHandler msgOutboundHandler = new SocketServerMsgOutboundHandler();
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -29,8 +31,10 @@ public class SocketServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                        public void initChannel(SocketChannel ch) throws Exception {
                            log.info("Thread " + Thread.currentThread().getId() + " create new SocketChannel");
-                           ch.pipeline().addLast(messageHandler);
-                           ch.pipeline().addLast(outboundHandler);
+                           final ByteToMessageDecoder byte2MsgDecoder = new SocketServerByte2MsgDecoder();
+                           ch.pipeline().addLast("byte2MsgDecoder", byte2MsgDecoder);
+                           ch.pipeline().addLast("msgInboundHandler", msgInboundHandler);
+//                           ch.pipeline().addLast("msgOutboundHandler", msgOutboundHandler);
                        }
                     });
             ChannelFuture channelFuture = serverBootstrap.bind().sync();
@@ -38,6 +42,7 @@ public class SocketServer {
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
+            log.info("shutdownGracefully");
             eventLoopGroup.shutdownGracefully();
         }
     }

@@ -14,6 +14,10 @@ public class SocketServerMsgInboundHandler extends ChannelInboundHandlerAdapter 
 
     private static final Logger log = Logger.getLogger(SocketServerMsgInboundHandler.class);
 
+    public SocketServerMsgInboundHandler() {
+        log.info("Current thread id: " + Thread.currentThread().getId());
+    }
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("channelActive is invoked");

@@ -55,11 +55,12 @@ public class SocketClient {
                         }
                     });
             ChannelFuture channelFuture = bootstrap.connect().sync();
-            channelFuture.addListener(listener -> log.info("send message is completed"));
+//            channelFuture.addListener(listener -> log.info("send message is completed"));
             channelFuture.channel().closeFuture().sync();
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
+            log.info("shutdown event loop group gracefully");
             eventLoopGroup.shutdownGracefully();
         }
     }

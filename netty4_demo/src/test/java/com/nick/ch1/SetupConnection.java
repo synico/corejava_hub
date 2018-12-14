@@ -26,6 +26,7 @@ public class SetupConnection {
                         ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
                             @Override
                             public void channelActive(ChannelHandlerContext ctx) throws Exception {
+                                log.info("will close pipeline");
                                 ctx.channel().pipeline().close().sync();//force thread to exit
                             }
                         });
