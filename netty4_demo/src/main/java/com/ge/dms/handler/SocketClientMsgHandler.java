@@ -24,9 +24,9 @@ public class SocketClientMsgHandler extends ChannelInboundHandlerAdapter {
         ByteBuf encoded = ctx.alloc().buffer(4 * this.data.length());
         encoded.writeBytes(this.data.getBytes("UTF-8"));
         ctx.writeAndFlush(encoded);
-        log.info("Client: date has been sent");
-//        encoded.release();
-        ReferenceCountUtil.release(encoded);
+        log.info("Client: data has been sent: " + encoded.toString(CharsetUtil.UTF_8));
+        encoded.release();
+//        ReferenceCountUtil.release(encoded);
     }
 
     @Override

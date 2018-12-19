@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.util.CharsetUtil;
-import io.netty.util.ReferenceCountUtil;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -24,13 +23,15 @@ public class SocketServerByte2MsgDecoder extends ByteToMessageDecoder {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("channelRead is invoked");
-        ReferenceCountUtil.retain(msg);
+//        log.info("channelRead is invoked");
         super.channelRead(ctx, msg);
     }
 
     @Override
     public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        log.info("decode: " + in.toString(CharsetUtil.UTF_8));
+        String msg = in.toString(CharsetUtil.UTF_8);
+        log.info("decode: " + msg);
+        ByteBuf bb = in.readBytes(msg.length());
+        out.add(bb);
     }
 }
