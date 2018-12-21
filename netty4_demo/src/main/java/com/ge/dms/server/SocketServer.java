@@ -37,9 +37,9 @@ public class SocketServer {
                            final ByteToMessageDecoder byte2MsgDecoder = new SocketServerByte2MsgDecoder();
                            ch.config().setReceiveBufferSize(Integer.MAX_VALUE);
                            ch.pipeline().addFirst("byte2MsgDecoder", byte2MsgDecoder);
-                           ch.pipeline().addLast("msgInboundHandler", msgInboundHandler);
-                           ch.pipeline().addLast("msgSaveInboundHandler", msgSaveHandler);
-//                           ch.pipeline().addLast("msgOutboundHandler", msgOutboundHandler);
+                           ch.pipeline().addAfter("byte2MsgDecoder","msgInboundHandler", msgInboundHandler);
+                           ch.pipeline().addAfter("msgInboundHandler", "msgSaveInboundHandler", msgSaveHandler);
+                           ch.pipeline().addLast("msgOutboundHandler", msgOutboundHandler);
                        }
                     });
             ChannelFuture channelFuture = serverBootstrap.bind().sync();
