@@ -23,14 +23,14 @@ public class SocketServerByte2MsgDecoder extends ByteToMessageDecoder {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//        log.info("channelRead is invoked");
+        log.info("channelRead is invoked");
         super.channelRead(ctx, msg);
     }
 
     @Override
     public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         String msg = in.toString(CharsetUtil.UTF_8);
-        log.info("decode: " + msg);
+        log.info("SocketServerByte2MsgDecoder is decoding msg   : " + msg);
         ByteBuf bb = in.readBytes(msg.length());
         out.add(bb);
     }

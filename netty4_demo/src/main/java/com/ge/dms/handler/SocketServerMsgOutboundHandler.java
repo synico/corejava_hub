@@ -18,8 +18,9 @@ public class SocketServerMsgOutboundHandler extends ChannelOutboundHandlerAdapte
     }
 
     @Override
-    public void read(ChannelHandlerContext ctx) {
+    public void read(ChannelHandlerContext ctx) throws Exception{
         log.info("read message in outbound handler");
+        super.read(ctx);
     }
 
     @Override

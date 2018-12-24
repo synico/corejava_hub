@@ -21,19 +21,21 @@ public class SocketServerMsgInboundHandler extends ChannelInboundHandlerAdapter 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("channelActive is invoked");
+        ctx.fireChannelActive();
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         ByteBuf in = (ByteBuf) msg;
-        log.info("Server received: " + in.toString(CharsetUtil.UTF_8));
+        log.info("SocketServerMsgInboundHandler is reading msg: " + in.toString(CharsetUtil.UTF_8));
         ctx.fireChannelRead(msg);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         log.info("channelReadComplete is invoked");
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+//        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
+        ctx.fireChannelReadComplete();
     }
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

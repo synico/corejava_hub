@@ -22,6 +22,7 @@ public class SocketServer {
         final SocketServerMsgInboundHandler msgInboundHandler = new SocketServerMsgInboundHandler();
         final SocketServerMsgOutboundHandler msgOutboundHandler = new SocketServerMsgOutboundHandler();
         final ChannelInboundHandlerAdapter msgSaveHandler = new ServerMsgSaveInboundHandler();
+        final ByteToMessageDecoder byte2MsgDecoder = new SocketServerByte2MsgDecoder();
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -34,11 +35,10 @@ public class SocketServer {
                            log.info("Thread " + Thread.currentThread().getId() + " create new SocketChannel");
                            ch.config().setReceiveBufferSize(Integer.MAX_VALUE);
                            ch.config().setKeepAlive(true);
-                           final ByteToMessageDecoder byte2MsgDecoder = new SocketServerByte2MsgDecoder();
                            ch.config().setReceiveBufferSize(Integer.MAX_VALUE);
-                           ch.pipeline().addFirst("byte2MsgDecoder", byte2MsgDecoder);
-                           ch.pipeline().addAfter("byte2MsgDecoder","msgInboundHandler", msgInboundHandler);
-                           ch.pipeline().addAfter("msgInboundHandler", "msgSaveInboundHandler", msgSaveHandler);
+                           ch.pipeline().addLast("byte2MsgDecoder", byte2MsgDecoder);
+                           ch.pipeline().addLast("msgInboundHandler", msgInboundHandler);
+                           ch.pipeline().addLast("msgSaveInboundHandler", msgSaveHandler);
                            ch.pipeline().addLast("msgOutboundHandler", msgOutboundHandler);
                        }
                     });

@@ -18,15 +18,15 @@ public class ServerMsgSaveInboundHandler extends ChannelInboundHandlerAdapter {
         if(msg instanceof ByteBuf) {
             input = ((ByteBuf) msg).toString(CharsetUtil.UTF_8);
         }
-        log.info("ServerMsgSaveInboundHandler is reading msg: " + input);
-        ctx.write(Unpooled.copiedBuffer("message from client has been read", CharsetUtil.UTF_8));
+        log.info("ServerMsgSaveInboundHandler is reading msg    : " + input);
+        ctx.writeAndFlush(Unpooled.copiedBuffer("message from client has been read", CharsetUtil.UTF_8));
+//        ctx.fireChannelRead(msg);//stop to perform event propagation
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
         log.info("channelReadComplete is invoked");
         ctx.writeAndFlush(Unpooled.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
-        ctx.writeAndFlush("completed");
     }
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
