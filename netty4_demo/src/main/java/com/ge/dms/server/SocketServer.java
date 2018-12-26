@@ -29,8 +29,7 @@ public class SocketServer {
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .localAddress(new InetSocketAddress(34567))
-                    .childOption(ChannelOption.SO_RCVBUF, 20)
-                    .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childOption(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator(64, Integer.MAX_VALUE, Integer.MAX_VALUE))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                        public void initChannel(SocketChannel ch) throws Exception {
                            log.info("Thread " + Thread.currentThread().getId() + " create new SocketChannel");
