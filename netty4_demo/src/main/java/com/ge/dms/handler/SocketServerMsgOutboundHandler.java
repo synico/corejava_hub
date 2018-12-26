@@ -1,10 +1,7 @@
 package com.ge.dms.handler;
 
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelOutboundHandlerAdapter;
-import io.netty.channel.ChannelPromise;
+import io.netty.channel.*;
 import io.netty.util.CharsetUtil;
 import org.apache.log4j.Logger;
 
@@ -24,9 +21,15 @@ public class SocketServerMsgOutboundHandler extends ChannelOutboundHandlerAdapte
     }
 
     @Override
-    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
+    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         log.info("write msg back to client in outbound handler");
-        ctx.writeAndFlush(Unpooled.copiedBuffer("message in outbound handler", CharsetUtil.UTF_8));
+        ctx.writeAndFlush(Unpooled.copiedBuffer("message in outbound handler", CharsetUtil.UTF_8), promise.addListener((ChannelFutureListener)future -> {
+            if (!future.isSuccess()) {
+                log.error("send data to client exception caught: ", future.cause());
+            } else {
+                log.info("send data to client success");
+            }
+        }));
     }
 
     @Override
