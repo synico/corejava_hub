@@ -19,7 +19,7 @@ public class SocketClient {
     private static final Logger log = Logger.getLogger(SocketClient.class);
 
     private String readData() {
-        File dataFile = new File("/home/nick/data/router1");
+        File dataFile = new File("/home/nick/data/router2");
         BufferedReader reader = null;
         StringBuilder msg = new StringBuilder();
         try {

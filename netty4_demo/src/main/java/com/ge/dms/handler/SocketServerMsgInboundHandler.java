@@ -29,6 +29,7 @@ public class SocketServerMsgInboundHandler extends ChannelInboundHandlerAdapter 
         ByteBuf in = (ByteBuf) msg;
         log.info("SocketServerMsgInboundHandler is reading msg: " + in.toString(CharsetUtil.UTF_8));
         ctx.fireChannelRead(msg);
+//        ctx.channel().write(msg);
     }
 
     @Override

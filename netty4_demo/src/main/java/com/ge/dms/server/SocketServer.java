@@ -22,7 +22,6 @@ public class SocketServer {
         final SocketServerMsgInboundHandler msgInboundHandler = new SocketServerMsgInboundHandler();
         final SocketServerMsgOutboundHandler msgOutboundHandler = new SocketServerMsgOutboundHandler();
         final ChannelInboundHandlerAdapter msgSaveHandler = new ServerMsgSaveInboundHandler();
-        final ByteToMessageDecoder byte2MsgDecoder = new SocketServerByte2MsgDecoder();
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -30,12 +29,12 @@ public class SocketServer {
                     .channel(NioServerSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY, true)
                     .localAddress(new InetSocketAddress(34567))
+                    .childOption(ChannelOption.SO_RCVBUF, 20)
+                    .childOption(ChannelOption.SO_KEEPALIVE, true)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                        public void initChannel(SocketChannel ch) throws Exception {
                            log.info("Thread " + Thread.currentThread().getId() + " create new SocketChannel");
-                           ch.config().setReceiveBufferSize(Integer.MAX_VALUE);
-                           ch.config().setKeepAlive(true);
-                           ch.config().setReceiveBufferSize(Integer.MAX_VALUE);
+                           ByteToMessageDecoder byte2MsgDecoder = new SocketServerByte2MsgDecoder();
                            ch.pipeline().addLast("byte2MsgDecoder", byte2MsgDecoder);
                            ch.pipeline().addLast("msgInboundHandler", msgInboundHandler);
                            ch.pipeline().addLast("msgSaveInboundHandler", msgSaveHandler);

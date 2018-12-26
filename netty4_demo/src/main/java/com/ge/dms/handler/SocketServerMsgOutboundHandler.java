@@ -29,5 +29,11 @@ public class SocketServerMsgOutboundHandler extends ChannelOutboundHandlerAdapte
         ctx.writeAndFlush(Unpooled.copiedBuffer("message in outbound handler", CharsetUtil.UTF_8));
     }
 
+    @Override
+    public void close(ChannelHandlerContext ctx, ChannelPromise promise) throws Exception {
+        log.info("ready to close connection");
+        ctx.close(promise);
+    }
+
 
 }
