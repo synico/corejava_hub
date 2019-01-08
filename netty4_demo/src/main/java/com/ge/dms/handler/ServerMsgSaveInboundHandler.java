@@ -3,11 +3,13 @@ package com.ge.dms.handler;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 import org.apache.log4j.Logger;
 
+@ChannelHandler.Sharable
 public class ServerMsgSaveInboundHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger log = Logger.getLogger(ServerMsgSaveInboundHandler.class);
