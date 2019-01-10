@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int-mqtt="http://www.springframework.org/schema/integration/mqtt"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/integration/mqtt http://www.springframework.org/schema/integration/mqtt/spring-integration-mqtt.xsd">
+
+    <bean id="clientFactory" class="org.springframework.integration.mqtt.core.DefaultMqttPahoClientFactory">
+        <property name="connectionOptions">
+            <bean class="org.eclipse.paho.client.mqttv3.MqttConnectOptions">
+            </bean>
+        </property>
+    </bean>
+
+    <int-mqtt:outbound-channel-adapter id="mqttOutboundAdapter"
+        client-id="mqttReceiver"
+        url="tcp://localhost:1833"
+        client-factory="clientFactory"
+    />
+
+</beans>
