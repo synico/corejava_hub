@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+            xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence_2_1.xsd">
+    <persistence-unit name="HibernateInAction">
+        <!--<jta-data-source>myDataSource</jta-data-source>
+        <class>com.nick.entity.ch1.Message</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>-->
+        <properties>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.username" value="postgres"/>
+            <property name="hibernate.connection.password" value="root"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:54322/ge_apm"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

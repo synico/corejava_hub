@@ -16,17 +16,17 @@ public class TestHarness {
                 public void run() {
                     // synchronized(obj) {
                     try {
-                        System.out.println("Thread Name: " + this.getName() + " will invoke startGate.await()");
+                        printLog("Thread Name: " + this.getName() + " will invoke startGate.await()");
                         startGate.await();
                         try {
-                            System.out.println("Thread Name: " + this.getName() + " will run");
+                            printLog("Thread Name: " + this.getName() + " will run");
                             task.run();
                         } finally {
                             endGate.countDown();
-                            System.out.println(this.getName() + " endGate.countDown()");
+                            printLog(this.getName() + " endGate.countDown()");
                         }
                     } catch (InterruptedException ignored) {
-
+                        ignored.printStackTrace();
                     }
                 }
                 // }
@@ -35,14 +35,18 @@ public class TestHarness {
         }
 
         long start = System.currentTimeMillis();
-        System.out.println("WILL INVOKE startGate.countDown()");
+        printLog("WILL INVOKE startGate.countDown()");
         // Thread.sleep(5000L);
         startGate.countDown();
-        System.out.println("WILL INVOKE endGate.await()");
+        printLog("WILL INVOKE endGate.await()");
         endGate.await();
         long end = System.currentTimeMillis();
 
         return end - start;
+    }
+
+    private static void printLog(String msg) {
+        System.out.println(Thread.currentThread().getName() + " | " + msg);
     }
 
     public static void main(String args[]) {
@@ -50,8 +54,8 @@ public class TestHarness {
         Thread thread = new Thread() {
             public void run() {
                 try {
-                    sleep(0L);
-                    System.out.println("x: " + System.currentTimeMillis());
+                    sleep(100L);
+                    printLog("x: " + System.currentTimeMillis());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -59,7 +63,7 @@ public class TestHarness {
         };
         try {
             long totalTime = th.timeTasks(10, thread);
-            System.out.println("Total time: " + totalTime);
+            printLog("Total time: " + totalTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
