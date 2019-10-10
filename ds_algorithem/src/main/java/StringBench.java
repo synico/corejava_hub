@@ -1,3 +1,7 @@
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class StringBench {
 
@@ -8,6 +12,24 @@ public class StringBench {
             System.out.println(s);
         }
         System.out.println(str.replaceAll("\"", ""));
+
+        Calendar cal = Calendar.getInstance();
+        TimeZone timeZone = cal.getTimeZone();
+        System.out.println(timeZone.getID());
+        System.out.println(timeZone.getDisplayName());
+
+        LocalTime localTime = LocalTime.now();
+        System.out.println(localTime);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        try {
+            LocalTime strLocalTime = LocalTime.parse("x", dateTimeFormatter);
+            System.out.println(strLocalTime);
+        } catch (Exception ex) {
+            System.out.println("x");
+        }
+
+//        System.out.println(localTime.isAfter(strLocalTime));
 
     }
 
