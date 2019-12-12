@@ -35,7 +35,7 @@ public class PreorderTraversalDemo extends File {
     }
 
     public static void main(String args[]) {
-        PreorderTraversalDemo demo = new PreorderTraversalDemo("./src");
+        PreorderTraversalDemo demo = new PreorderTraversalDemo("./ds_algorithem/src");
         demo.listAll();
     }
 

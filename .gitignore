@@ -3,6 +3,7 @@
 .settings/
 .classpath
 .project
+*.iml
 
 # Compiled class file
 *.class
