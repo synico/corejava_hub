@@ -206,25 +206,25 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
     
     //preorder-recursive
-    private void preorderPrint(BinaryNode<T> t) {
+    private void preOrderPrint(BinaryNode<T> t) {
         if(t != null) {
             System.out.println("Node: " + t.element);//1st: node
             if(t.left != null) {
-                preorderPrint(t.left);//2nd: left
+                preOrderPrint(t.left);//2nd: left
             }
             if(t.right != null) {
-                preorderPrint(t.right);//3rd: right
+                preOrderPrint(t.right);//3rd: right
             }
         }
     }
     
     //postorder-recursive
-    private void postorderPrint(BinaryNode<T> t) {
+    private void postOrderPrint(BinaryNode<T> t) {
         if(t != null) {
             if(t.left != null)
-                postorderPrint(t.left);
+                postOrderPrint(t.left);
             if(t.right != null)
-                postorderPrint(t.right);
+                postOrderPrint(t.right);
             System.out.println("Node: " + t.element);
         }
     }
@@ -319,6 +319,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         bst.insert(3);
 //        bst.printTree();
         bst.insert(5);
+        bst.insert(7);
+        bst.insert(9);
 //        bst.remove(6);//remove root
         //test method contains
         bst.levelOrderTraversal(bst.getRoot());
