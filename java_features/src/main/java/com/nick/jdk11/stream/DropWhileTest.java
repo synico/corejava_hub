@@ -6,14 +6,15 @@ import java.util.stream.Stream;
 public class DropWhileTest {
 
     public static void main(String[] args) {
-//        long count = Stream.of(1, 2, 3, 4, 5).dropWhile(i -> i % 2 != 0).count();
+//        Stream<Integer> dropWhileStream = Stream.of(1, 2, 3, 4, 5).dropWhile(i -> i == 3);
+//        Object array[] = dropWhileStream.toArray();
 //
 //        var list = new ArrayList<String>();
 //        var stream = list.stream();
 //
 //        var test = "1";
 //
-//        System.out.println(test);
+        System.out.println("count: ");
     }
 
 }
