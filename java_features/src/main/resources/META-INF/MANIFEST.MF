@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: nick liu
+Agent-Class: com.nick.agent.MyCustomAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Premain-Class: com.nick.agent.MyCustomAgent
