@@ -13,6 +13,13 @@ public class ChildInSubPkg extends ParentClass {
 
         ChildInSubPkg childInSubPkg = new ChildInSubPkg();
         childInSubPkg.parentProtectedMethod();
+
+        System.out.println("ParentClass.getClass(): " + parentClass.getClass());
+        System.out.println("ChildInSubPkg.getClass(): " + childInSubPkg.getClass());
+
+        if(childInSubPkg instanceof ParentClass) {
+            System.out.println("Type of childInSubPkg is ParentClass");
+        }
     }
 
 }
