@@ -37,4 +37,12 @@ public class Device implements Cloneable{
                 "location: " + this.location;
     }
 
+    protected void testProtect() {
+
+    }
+
+    void testDefaultAccess() {
+
+    }
+
 }
